@@ -9,7 +9,7 @@ public class ApplicantBuilder
 
     public ApplicantBuilder()
     {
-        _applicant = new Applicant();
+        _applicant = new Applicant(){Id = Applicant.ApplicantsCreated};
     }
 
     public ApplicantBuilder SetName(string name)
@@ -56,5 +56,9 @@ public class ApplicantBuilder
         return this;
     }
 
-    public Applicant Build() => _applicant;
+    public Applicant Build()
+    {
+        Applicant.ApplicantsCreated++;
+        return _applicant;
+    }
 }

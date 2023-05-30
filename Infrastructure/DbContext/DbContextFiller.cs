@@ -12,7 +12,7 @@ public static class DbContextFiller
     {
         using StreamReader sr = new StreamReader(sourcePath);
         List<T> data = new List<T>();
-        foreach (var csvLine in sr.ReadToEnd().Split('\n'))
+        foreach (var csvLine in sr.ReadToEnd().Split("\r\n", StringSplitOptions.RemoveEmptyEntries))
         {
             data.Add(parserFunc(csvLine));
         }

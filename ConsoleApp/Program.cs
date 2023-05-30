@@ -1,11 +1,12 @@
-﻿using ConsoleApp;
-using Infrastructure.DbContext;
+﻿using Infrastructure.DbContext;
+using Infrastructure.Model;
+
+namespace ConsoleApp;
 
 public static class Program
 {
     public static void Main()
     {
-        DbContext database = DbContext.InitializeDb();
         try
         {
             UserInterface.MainLoop();

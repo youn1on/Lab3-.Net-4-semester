@@ -22,15 +22,18 @@ public partial class DbContext
         Applicants = new();
     }
     
-    public static DbContext InitializeDb()
+    public static DbContext GetDbInstance()
     {
-        if (_instance is not null)
-            return _instance;
-        
-        var applicants = DbContextFiller.GetApplicants();
-        var institutions = DbContextFiller.GetInstitutions();
+        if (_instance is null)
+        {
+            var applicants = DbContextFiller.GetApplicants();
+            var institutions = DbContextFiller.GetInstitutions();
 
-        return new DbContext(institutions, applicants);
+            _instance = new DbContext(institutions, applicants);
+            Applicant.ApplicantsCreated = _instance.Applicants.Count;
+        }
+
+        return _instance;
     }
 
     public static void Save()
@@ -38,19 +41,19 @@ public partial class DbContext
         if (_instance is null)
             return;
 
-        foreach (var institution in _instance.Institutions)
+        using (StreamWriter sw = new StreamWriter(DbContextFiller.InstitutionsSource))
         {
-            using (StreamWriter sw = new StreamWriter(DbContextFiller.InstitutionsSource))
+            foreach (var institution in _instance.Institutions)
             {
-                sw.Write(institution.ToCsvString());
+                sw.WriteLine(institution.ToCsvString());
             }
         }
         
-        foreach (var applicant in _instance.Applicants)
+        using (StreamWriter sw = new StreamWriter(DbContextFiller.ApplicantsSource))
         {
-            using (StreamWriter sw = new StreamWriter(DbContextFiller.ApplicantsSource))
+            foreach (var applicant in _instance.Applicants)
             {
-                sw.Write(applicant.ToCsvString());
+                sw.WriteLine(applicant.ToCsvString());
             }
         }
     }

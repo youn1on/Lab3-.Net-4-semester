@@ -15,7 +15,7 @@ public class HigherEducationInstitution : IDbModel
 
     public HigherEducationInstitution(string csvLine)
     {
-        string[] data = csvLine.Split(';');
+        string[] data = csvLine.Trim().Split(';');
         if (data.Length != 2 || !int.TryParse(data[0], out int id))
             throw new ArgumentException("Incorrect institution`s csv");
         Id = id;
@@ -24,6 +24,6 @@ public class HigherEducationInstitution : IDbModel
     
     public string ToCsvString()
     {
-        return Id.ToString() + ';' + Name + '\n';
+        return Id.ToString() + ';' + Name;
     }
 }

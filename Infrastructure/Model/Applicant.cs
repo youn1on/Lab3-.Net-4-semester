@@ -4,6 +4,7 @@ namespace Infrastructure.Model;
 
 public class Applicant : IDbModel
 {
+    public static int ApplicantsCreated;
     public int Id { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
@@ -71,6 +72,6 @@ public class Applicant : IDbModel
             string.Join(',', Rates.Select(a => ""+a.Item1+':'+a.Item2)),
             string.Join(',', Applications.Select(a => ""+a.Item1+':'+a.Item2+':'+a.Item3))
         };
-        return string.Join(';', components)+'\n';
+        return string.Join(';', components);
     }
 }
