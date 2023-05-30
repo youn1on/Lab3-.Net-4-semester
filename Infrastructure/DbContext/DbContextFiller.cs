@@ -5,8 +5,8 @@ namespace Infrastructure.DbContext;
 
 public static class DbContextFiller
 {
-    private const string ApplicantsSource = "data/Applicants.csv";
-    private const string InstitutionsSource = "data/Institutions.csv";
+    public const string ApplicantsSource = "data/Applicants.csv";
+    public const string InstitutionsSource = "data/Institutions.csv";
 
     private static List<T> GetModels<T>(string sourcePath, Func<string, T> parserFunc) where T : IDbModel
     {

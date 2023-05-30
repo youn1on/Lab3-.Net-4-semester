@@ -1,3 +1,18 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ConsoleApp;
+using Infrastructure.DbContext;
 
-Console.WriteLine("Hello, World!");
+public static class Program
+{
+    public static void Main()
+    {
+        DbContext database = DbContext.InitializeDb();
+        try
+        {
+            UserInterface.MainLoop();
+        }
+        finally
+        {
+            DbContext.Save();
+        }
+    }
+}
