@@ -1,9 +1,8 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Infrastructure.Model;
+﻿using Infrastructure.Model;
 
 namespace Infrastructure.Builder;
 
-public class ApplicantBuilder
+public class ApplicantBuilder : IApplicantBuilder
 {
     private Applicant _applicant;
 
@@ -12,44 +11,44 @@ public class ApplicantBuilder
         _applicant = new Applicant(){Id = Applicant.ApplicantsCreated};
     }
 
-    public ApplicantBuilder SetName(string name)
+    public IApplicantBuilder SetName(string name)
     {
         _applicant.Name = name;
         return this;
     }
     
-    public ApplicantBuilder SetSurname(string name)
+    public IApplicantBuilder SetSurname(string name)
     {
         _applicant.Surname = name;
         return this;
     }
     
-    public ApplicantBuilder SetPatronymic(string patronymic)
+    public IApplicantBuilder SetPatronymic(string patronymic)
     {
         _applicant.Patronymic = patronymic;
         return this;
     }
     
-    public ApplicantBuilder SetBirthDate(DateOnly birthdate)
+    public IApplicantBuilder SetBirthDate(DateOnly birthdate)
     {
         _applicant.BirthDate = birthdate;
         return this;
     }
     
-    public ApplicantBuilder SetEducationLevel(EducationLevel level)
+    public IApplicantBuilder SetEducationLevel(EducationLevel level)
     {
         _applicant.EducationLevel = level;
         return this;
     }
     
-    public ApplicantBuilder AddRate(Subject subject, float rate)
+    public IApplicantBuilder AddRate(Subject subject, float rate)
     {
         if (rate is >= 0 and <= 200)
             _applicant.Rates.Add((subject, rate));
         return this;
     }
     
-    public ApplicantBuilder AddApplication(ushort speciality, int institutionId, EducationForm form)
+    public IApplicantBuilder AddApplication(ushort speciality, int institutionId, EducationForm form)
     {
         if (speciality is >= 11 and <= 275)
             _applicant.Applications.Add((speciality, institutionId, form));

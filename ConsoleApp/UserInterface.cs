@@ -73,7 +73,7 @@ public static class UserInterface
     private static void AddApplicant()
     {
         DbContext.GetDbInstance();
-        var builder = new ApplicantBuilder();
+        IApplicantBuilder builder = new ApplicantBuilder();
         
         var name = GetInput("name", Validations.IsValidName);
         if (name is null) return;
@@ -90,6 +90,10 @@ public static class UserInterface
         var birthDate = GetInput("birth date", Validations.IsValidBirthDate);
         if (birthDate is null) return;
         builder.SetBirthDate(DateOnly.Parse(birthDate));
+        
+        var educationLevel = GetInput("education level", Validations.IsValidEducationLevel);
+        if (educationLevel is null) return;
+        builder.SetEducationLevel(Enum.Parse<EducationLevel>(educationLevel));
         
         var rates = GetSerialInput("rate", "Ukrainian : 195", Validations.IsValidRateInputString, 3, 4);
         if (rates is null) return;

@@ -45,4 +45,9 @@ public class Validations
                DbContext.GetInstitutionByName(splitted[1].Trim()) is not null;
 
     }
+    
+    public static bool IsValidEducationLevel(string date)
+    {
+        return Enum.TryParse(date, out EducationLevel _);
+    }
 }
