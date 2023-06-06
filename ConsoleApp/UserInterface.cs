@@ -72,6 +72,7 @@ public static class UserInterface
 
     private static void AddApplicant()
     {
+        DbContext.GetDbInstance();
         var builder = new ApplicantBuilder();
         
         var name = GetInput("name", Validations.IsValidName);
